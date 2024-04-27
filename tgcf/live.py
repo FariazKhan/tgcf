@@ -4,7 +4,7 @@ import logging
 import os
 import sys
 from typing import Union
-
+from googletrans import Translator
 from telethon import TelegramClient, events, functions, types
 from telethon.sessions import StringSession
 from telethon.tl.custom.message import Message
@@ -24,7 +24,7 @@ async def new_message_handler(event: Union[Message, events.NewMessage]) -> None:
     if chat_id not in config.from_to:
         return
     logging.info(f"New message received in {chat_id}")
-    message = event.message
+    message = Translator.translate(event.message)
 
     event_uid = st.EventUid(event)
 
@@ -57,7 +57,7 @@ async def new_message_handler(event: Union[Message, events.NewMessage]) -> None:
 
 async def edited_message_handler(event) -> None:
     """Handle message edits."""
-    message = event.message
+    message = message = Translator.translate(event.message)
 
     chat_id = event.chat_id
 
